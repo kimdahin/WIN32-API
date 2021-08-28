@@ -6,7 +6,7 @@ hPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
 
             hPen = CreatePen(PS_DASH, 1, RGB(0, 0, 0));
             SelectObject(hdc, hPen);
-            Ellipse(hdc, 50, 50, 80, 80);
+            Ellipse(hdc, 50, 50, 80, 70);
             DeleteObject(hPen);
 
             hPen = CreatePen(PS_DOT, 1, RGB(0, 0, 0));
