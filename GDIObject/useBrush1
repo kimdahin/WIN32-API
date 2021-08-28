@@ -10,3 +10,4 @@
             SelectObject(hdc, hOldBrush);
             //다시 지정. 원래의 펜으로 설정
             SelectObject(hdc, hOldPen);
+ 
