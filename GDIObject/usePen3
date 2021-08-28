@@ -1,0 +1,18 @@
+hPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
+            hOldPen = (HPEN)SelectObject(hdc, hPen);
+            Rectangle(hdc, 10, 10, 30, 30);
+            //생성한 펜을 제거
+            DeleteObject(hPen);
+
+            hPen = CreatePen(PS_DASH, 1, RGB(0, 0, 0));
+            SelectObject(hdc, hPen);
+            Rectangle(hdc, 50, 50, 80, 80);
+            DeleteObject(hPen);
+
+            hPen = CreatePen(PS_DOT, 1, RGB(0, 0, 0));
+            SelectObject(hdc, hPen);
+            Rectangle(hdc, 100, 100, 150, 150);
+            DeleteObject(hPen);
+
+            //다시 지정. 원래의 펜으로 설정
+            SelectObject(hdc, hOldPen);
