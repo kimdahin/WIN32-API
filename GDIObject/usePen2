@@ -19,3 +19,4 @@ hPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
 
             //다시 지정. 원래의 펜으로 설정
             SelectObject(hdc, hOldPen);
+ 
