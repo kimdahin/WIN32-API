@@ -11,3 +11,4 @@ hPen = CreatePen(PS_SOLID, 5, RGB(0, 0, 0));
             LineTo(hdc, 500, 200);
             //다시 지정. 원래 상태로 지정
             SelectObject(hdc, hOldPen);
+ 
