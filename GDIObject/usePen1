@@ -2,7 +2,7 @@ hPen = CreatePen(PS_SOLID, 5, RGB(0, 0, 0));
             hOldPen = (HPEN)SelectObject(hdc, hPen);
             MoveToEx(hdc, 200, 200, NULL);
             LineTo(hdc, 300, 200);
-            //생성한 펜이 펜을 제거
+            //생성한 펜을 제거
             DeleteObject(hPen);
 
             hPen = (HPEN)GetStockObject(BLACK_PEN);
