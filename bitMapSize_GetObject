@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <windows.h>
+
+int main() {
+
+    BITMAP bm;
+    HBITMAP hFileLoadBitmap = (HBITMAP)LoadImage(NULL, "비트맵 이미지 경로",
+        IMAGE_BITMAP, 0, 0,
+        LR_CREATEDIBSECTION |
+        LR_LOADFROMFILE | LR_DEFAULTSIZE);
+
+    GetObject(hFileLoadBitmap, sizeof(BITMAP), &bm);
+
+	printf("가로: %d, 세로: %d", bm.bmWidth, bm.bmHeight);
+
+
+	return 0;
+}
