@@ -1,0 +1,19 @@
+    //WM_KEYDOWN 메시지는 모든 키에 대해 발생하는 메시지이다.
+    case WM_KEYDOWN:
+    {
+        //WM_KEYDOWN메시지가 발생할 때 부가적으로 발생하는 wParam.
+        //wParam에는 가상 키 코드(ex: VK_LEFT, VK_HOME) 또는 문자상수(ex:'1', 'A'(대문자로만 저장됨))로
+        //누른 키의 정보를 담아서 전달된다.
+        switch (wParam) {
+        case VK_LEFT:
+            MessageBox(hWnd, "안녕하세요", "왼쪽", MB_OK);
+            break;
+        case VK_RIGHT:
+            MessageBox(hWnd, "안녕하세요", "오른쪽", MB_OK);
+            break;
+        case VK_F1:
+            MessageBox(hWnd, "안녕하세요", "F1", MB_OK);
+            break;
+        }
+    }
+    break;
