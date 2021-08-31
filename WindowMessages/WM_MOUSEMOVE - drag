@@ -1,0 +1,35 @@
+        //마우스가 움직일 때 발생되는 WM_MOUSEMOVE 메시지
+        case WM_MOUSEMOVE:
+        /*
+            WndProc()함수에 선언되어있다.
+         
+            static char string[100];
+        */
+
+        //WM_MOUSEMOVE 메시지가 발생할 때 부가적인 정보를 담는 wParam.
+        //wParam에는 마우스 버튼 코드가 담긴다.
+        if (wParam == MK_LBUTTON) {
+            sprintf(string, "%s", "드래그중~");
+        }
+        else {
+            sprintf(string, "%s", "이동중~");
+        }
+        
+        //마우스의 상태에 따라 출력을 해주면 된다. WM_PAINT 메시지가 발생할 때 TextOut()함수로 출력하면 된다.
+        InvalidateRect(hWnd, NULL, TRUE);
+        
+        
+        
+        
+        
+        
+        /*
+        
+        WM_MOUSEMOVE메시지와 wParam으로 드래그 상태인지 알아내기
+        
+        
+        WM_MOUSEMOVE 메시지가 발생할 때 wParam에 마우스 버튼 코드가 담겨진다.
+        WM_MOUSEMOVE 메시지가 발생했으면서 wParam에 MK_LBUTTON(마우스 버튼 코드) 코드가 담겨져 있다면 드래그 상태인 것이다.
+        마우스가 움직이고 있으면서 마우스 왼쪽 버튼이 클릭되어 있다면 계속 드래그 상태일 것이다.
+        
+        */
