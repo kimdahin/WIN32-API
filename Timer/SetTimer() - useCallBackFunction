@@ -1,0 +1,70 @@
+        //전역변수로 선언
+        int g_nOneSecond, g_nTenSecond;
+
+        //콜백함수의 형식은 정해져있다.
+        VOID CALLBACK OneTimerProc(HWND hWnd, UINT uMSG, UINT_PTR idEvent, DWORD dwTime) 
+        {
+            g_nOneSecond++;
+            InvalidateRect(hWnd, NULL, TRUE);
+        }
+
+        VOID CALLBACK TenTimerProc(HWND hWnd, UINT uMSG, UINT_PTR idEvent, DWORD dwTime)
+        {
+            g_nTenSecond++;
+            InvalidateRect(hWnd, NULL, TRUE);
+        }
+
+
+
+//아래서부터는 WndProc() 함수(윈도우 프로시저) 안에 있는  switch (message){} <-- 이 중괄호 안의 코드입니다.
+
+         /*
+            WndProc() 함수 안에 선언되어 있음
+
+            static char string[100];
+        */
+
+
+        //CreateWindow() <-- 윈도우를 실제로 생성하는 함수
+        //위의 함수가 실행됐을 때 내부적으로 WM_CREATE 메시지가 발생이 된다.
+        case WM_CREATE:
+        //별도의 함수를 구분을 해서 타이머를 셋업했다.
+        SetTimer(hWnd, 1, 1000, OneTimerProc);//1초마다 OneTimerProc()함수 실행(콜백함수)
+        SetTimer(hWnd, 2, 10000, TenTimerProc);//10초마다 TenTimerProc()함수 실행(콜백함수)
+        break;
+
+
+
+        case WM_PAINT:
+        {
+            PAINTSTRUCT ps;
+            HDC hdc = BeginPaint(hWnd, &ps);
+
+            sprintf(string, "1초마다 증가 : %d       10초마다 증가 : %d", g_nOneSecond, g_nTenSecond);
+            TextOut(hdc, 10, 10, string, strlen(string));
+
+            EndPaint(hWnd, &ps);
+        }
+        break;
+        
+        
+        case WM_DESTROY:
+        //응용프로그램이 종료될 때 타이머 제거!
+        KillTimer(hWnd, 1);
+        KillTimer(hWnd, 2);
+        PostQuitMessage(0);
+        break;
+        
+        
+        
+        
+        
+        
+        
+        /*
+        
+        WM_TIMER메시지를 통해 처리하는 방식이 아닌 콜백 함수를 통해서 시간이 지날때마다 어떤 코드를 실행합니다.
+        
+        
+        
+        */
