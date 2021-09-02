@@ -1,0 +1,78 @@
+        /*
+            WndProc() 함수 안에 선언되어 있음
+
+            static int nOneSecond;
+            static int nTenSecond;
+            static char string[100];
+        */
+
+
+        //CreateWindow() <-- 윈도우를 실제로 생성하는 함수
+        //위의 함수가 실행됐을 때 내부적으로 WM_CREATE 메시지가 발생이 된다.
+    case WM_CREATE:
+        SetTimer(hWnd, 1, 1000, NULL);//타이머를 생성하며, 1초마다 WM_TIMER 메시지를 발생시키라는 뜻
+        SetTimer(hWnd, 2, 10000, NULL);//타이머를 생성하며, 10초마다 WM_TIMER 메시지를 발생시키라는 뜻
+        break;
+    case WM_TIMER:
+    
+        //wParam에는 타이머의 아이디 값이 들어있다.
+        switch (wParam) {
+        case 1:
+            //1초마다 증가
+            nOneSecond++;
+            break;
+        case 2:
+            //10초마다 증가
+            nTenSecond++;
+            break;
+        }
+        InvalidateRect(hWnd, NULL, TRUE);
+        break;
+        
+        
+        case WM_PAINT:
+        {
+            PAINTSTRUCT ps;
+            HDC hdc = BeginPaint(hWnd, &ps);
+            
+            //출력
+            sprintf(string, "1초마다 증가 : %d       10초마다 증가 : %d", nOneSecond, nTenSecond);
+            TextOut(hdc, 10, 10, string, strlen(string));
+
+            EndPaint(hWnd, &ps);
+        }
+        break;
+        
+        
+         case WM_DESTROY:
+        //응용프로그램이 종료될 때 타이머 제거!
+        KillTimer(hWnd, 1);
+        KillTimer(hWnd, 2);
+        PostQuitMessage(0);
+        break;
+        
+        
+        
+        
+        
+        
+        
+        /*
+        
+        
+        타이머를 생성하고, WM_TIMER 메시지를 발생시키고, 출력하기
+        
+        
+        운영체제가 실행이 되기 전 컴퓨터가 하드웨어 시스템에 대해서 체크를 하는데 그런 체크는
+        시모스(CMOS)에서 이루어진다. CMOS 안에 타이머가 있는데 그 CMOS 안에 저장돼있는 시간에 대한 정보들을 쓸 수 있도록 해준다.
+        윈도우를 실행할 때(WM_CREATE 메시지가 ) SetTimer() 함수로 타이머를 생성한다.
+        콜백함수를 호출하지 않겠다고 NULL로 설정해놨기 때문에 바로 WM_TIMER 메시지가 발생한다.(타이머를 생성할 때 설정한 시간이 지날 때마다)
+        그때 wParam으로 타이머의 아이디가 부가적으로 들어오는데 wParam의 아이디 값에 따라서 코드를 실행해주면 된다.
+        그리고 InvalidateRect()함수로 화면을 갱신해주고, WM_PAINT가 발생할테니 그곳에서 값을 출력해준다.
+        마지막으로 응용프로그램이 종료될 때 타이머를 제거하는데, WM_DESTORY 메시지가 발생하면 KillTimer()함수를 통해서 제거를 해주면 된다.
+        
+        
+        */
+        
+        
+        
