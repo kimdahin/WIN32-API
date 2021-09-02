@@ -13,6 +13,24 @@
             g_nTenSecond++;
             InvalidateRect(hWnd, NULL, TRUE);
         }
+        /*
+        //콜백 함수 하나로 실행을 시키는법
+        
+        //하나의 콜백 함수로 아이디에 따른 실행
+        VOID CALLBACK TimerProc(HWND hWnd, UINT uMSG, UINT_PTR idEvent, DWORD dwTime) 
+        {
+            switch (idEvent) {
+            case 1:
+                g_nOneSecond++;
+                break;
+            case 2:
+                g_nTenSecond++;
+                break;
+            }
+            InvalidateRect(hWnd, NULL, TRUE);
+        }
+        
+        */
 
 
 
@@ -32,7 +50,15 @@
         SetTimer(hWnd, 1, 1000, OneTimerProc);//1초마다 OneTimerProc()함수 실행(콜백함수)
         SetTimer(hWnd, 2, 10000, TenTimerProc);//10초마다 TenTimerProc()함수 실행(콜백함수)
         break;
-
+        /*
+        //콜백 함수 하나로 실행을 시키는법
+        
+        case WM_CREATE:
+        //별도의 함수를 구분을 해서 타이머를 셋업했다.
+        SetTimer(hWnd, 1, 1000, TimerProc);//1초마다 TimerProc()함수 실행(콜백함수)
+        SetTimer(hWnd, 2, 10000, TimerProc);//10초마다 TimerProc()함수 실행(콜백함수)
+        
+        */
 
 
         case WM_PAINT:
