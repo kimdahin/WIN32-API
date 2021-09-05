@@ -16,8 +16,8 @@ TCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름�
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
-INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);//이것이 다이얼로그의 프로시저 역할을 할 것이다.
-INT_PTR CALLBACK    DlgProc(HWND, UINT, WPARAM, LPARAM);//이것이 다이얼로그의 프로시저 역할을 할 것이다.
+INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);//이것이 다이얼로그의 프로시저 역할을 할 것이라는 뜻
+INT_PTR CALLBACK    DlgProc(HWND, UINT, WPARAM, LPARAM);//이것이 다이얼로그의 프로시저 역할을 할 것이라는 뜻
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -140,7 +140,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 MessageBox(hWnd, "이것은 모달형 다이얼로그입니다.", "설명", MB_OK);
                 break;
             case ID_32772:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DlgProc);
+                //메뉴->파일에서 내가 만든 다이얼로그를 누르면 이 다이얼로그를 생성한다.(모달 다이얼로그)
+                DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DlgProc); //인스턴스와 폼 아이디, 윈도우 핸들, 프로시저를 설정해준다.
+                //프로시저는 오토코드 복사로, 아이디는 리소스에서 만든 다이얼로그 폼을 연결
                 break;
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
@@ -163,9 +165,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         break;
     case WM_DESTROY:
-        //응용프로그램이 종료될 때 타이머 제거!
-        KillTimer(hWnd, 1);
-        KillTimer(hWnd, 2);
         PostQuitMessage(0);
         break;
     default:
@@ -196,8 +195,7 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 
-//다이얼로그의 프로시저 실제 코드일 것이다.
-// 정보 대화 상자의 메시지 처리기입니다.
+//모달형 다이얼로그의 프로시저(메시지 처리기)
 INT_PTR CALLBACK DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
     UNREFERENCED_PARAMETER(lParam);
@@ -207,17 +205,18 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
     case WM_CLOSE:
     {
+        //다이얼로그를 닫으면 다이얼로그를 해지
         EndDialog(hDlg, 0);
-        return (INT_PTR)TRUE; //메시지를 처리를 함 
+        return (INT_PTR)TRUE; //메시지를 처리를 했다는 뜻 
     }
     case WM_PAINT:
     {
         hdc = BeginPaint(hDlg, &ps);
         TextOut(hdc, 10, 10, "모달형 다이얼로그", strlen("모달형 다이얼로그"));
         EndPaint(hDlg, &ps);
-        return (INT_PTR)TRUE;
+        return (INT_PTR)TRUE; //메시지를 처리를 했다는 뜻 
     }
     }
-    return (INT_PTR)FALSE; //메시지를 처리를 하지 않음
+    return (INT_PTR)FALSE; //메시지를 처리를 하지 않았다는 뜻
 
 }
